@@ -8,11 +8,17 @@ MongoDB a été choisi pour la base de données.</p>
 <h3>Frontend</h3>
 Le front-end de l'application a été développé à l'aide d'Angular.<br>
 Executer<br>
-<strong style="background:grey;"> install </strong><br>
-<strong style="background:grey;"> npm install --save-dev run-script-os </strong><br>
-<a href="https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6">Repositorie Frontend</a><br>
+<span style="background:grey; padding:0 5px;border:solid 1px black;">
+install
+</span><br>
+<span style="background:grey; padding:0 5px;border:solid 1px black;">
+npm install --save-dev run-script-os
+</span><br>
+<a href="https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6">Le Repositorie Frontend</a><br>
 Après récuperation du frontend lancer le serveur frontend avec la commande : <br>
-<strong style="background:grey;">npm start</strong><br>
+<span  style="background:grey;padding:0 5px;border:solid 1px black;">
+npm start
+</span><br>
 
  <h3>Backend</h3> 
  Après récuperation de ce repositorie :<br>
@@ -25,4 +31,6 @@ Après récuperation du frontend lancer le serveur frontend avec la commande : <
  La connexion à MongoDB sera alors possible.<br><br>
 
 Lancer le serveur backend avec la commande :<br>
-<strong>"nodemon server"</strong><br>
+<span  style="background:grey;padding:0 5px;border:solid 1px black;">
+nodemon server
+</span><br>
