@@ -7,6 +7,9 @@ Ce projet utilise NodeJS.<br>
 MongoDB a été choisi pour la base de données.</p>
 <h3>Frontend</h3>
 Le front-end de l'application a été développé à l'aide d'Angular.<br>
+Executer
+<strong>"npm install"</strong><br>
+<strong>"npm install --save-dev run-script-os"</strong><br>
 <a href="https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6">Repositorie Frontend</a><br>
 Après récuperation du frontend lancer le serveur frontend avec la commande : <br>
 <strong>"npm start"</strong><br>
