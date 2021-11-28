@@ -6,7 +6,7 @@ const sauceRoute = require('./routes/sauceRoute');
 
 
 
-// connexion au fichier d'environnement
+// // connexion au fichier d'environnement
 require('dotenv').config();
 
 // connexion MongoDB
