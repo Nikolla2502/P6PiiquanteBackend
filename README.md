@@ -21,6 +21,13 @@ npm start
 </span><br>
 
  <h3>Backend</h3> 
+ Les dependances ont été utilisé
+ <ul>
+ <li>npm install -g nodemon</li>
+ <li>npm install --save express</li>
+ <li>npm install --save mongoose</li>
+ <li>npm install --save mongoose-unique-validator</li>
+    </ul>
  Après récuperation de ce repositorie :<br>
 
  <strong>Fichier ".env.dist" :</strong><br>

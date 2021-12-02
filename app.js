@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 
 const sauceRoute = require('./routes/sauceRoute');
-
+const userRoute = require('./routes/userRoute');
 
 
 // // connexion au fichier d'environnement
@@ -26,5 +26,6 @@ app.use((req, res, next) => {
 });    
 
 app.use('/api/sauces', sauceRoute);
+app.use('/api/auth', userRoute);
 
 module.exports = app;
