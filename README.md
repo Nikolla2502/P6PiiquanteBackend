@@ -9,7 +9,7 @@ MongoDB a été choisi pour la base de données.</p>
 Le front-end de l'application a été développé à l'aide d'Angular.<br>
 Executer<br>
 <span style="background:grey; padding:0 5px;border:solid 1px black;">
-install
+npm install
 </span><br>
 <span style="background:grey; padding:0 5px;border:solid 1px black;">
 npm install --save-dev run-script-os
@@ -28,6 +28,7 @@ npm start
  <li>npm install --save mongoose</li>
  <li>npm install --save mongoose-unique-validator</li>
  <li>npm install --save bcrypt</li>
+ <li>npm install --save jsonwebtoken</li>
     </ul>
  Après récuperation de ce repositorie :<br>
 

@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+// recuperation du modele user 
 const user = require('../models/user');
-
-
-
 
 exports.signup = (req, res, next) => {              // creation d'un nouvel utilisateur
     bcrypt.hash(req.body.password, 10)             // on hash le mot de passe 10 fois
@@ -31,7 +31,11 @@ exports.login = (req, res ,next) => {                 // connexion d'un utilisat
                     }
                     res.status(200).json({
                         userId: user_id,
-                        token: 'TOKEN'
+                        token: jwt.sign(
+                            { userId: user._id },
+                            'RANDOM_TOKEN_SECRET',
+                            { expiresIn: '24h' }
+                        )
                     });
                 })
                 .catch(error => res.status(500).json({ error }));
