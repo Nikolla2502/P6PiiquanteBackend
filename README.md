@@ -21,12 +21,13 @@ npm start
 </span><br>
 
  <h3>Backend</h3> 
- Les dependances ont été utilisé
+ Les dependances NPM suivantes ont été utilisé :
  <ul>
  <li>npm install -g nodemon</li>
  <li>npm install --save express</li>
  <li>npm install --save mongoose</li>
  <li>npm install --save mongoose-unique-validator</li>
+ <li>npm install --save bcrypt</li>
     </ul>
  Après récuperation de ce repositorie :<br>
 
@@ -35,7 +36,7 @@ npm start
  Inserer votre identifiant et mot de passe MongoDB.<br>
  Renseigner votre chaîne secrète.<br>
  Modifier l'extension du fichier ".env.dist" par ".env".<br>
- La connexion à MongoDB sera alors possible.<br><br>
+ La connexion à MongoDB sera alors possible.<br>
 
 Lancer le serveur backend avec la commande :<br>
 <span  style="background:grey;padding:0 5px;border:solid 1px black;">
