@@ -2,20 +2,20 @@ const express = require('express');
 
 const router = express.Router();  // on utilise la methode router d'express
 
-const sauceCtrl = require('../controllers/sauceCtrl')
+const sauceCtrl = require('../controllers/sauceCtrl');
+const auth = require ('../middleware/auth');
 
-
-// route sauce
+// routes sauce
 // creation sauce
-router.post('/', sauceCtrl.createSauce);
+router.post('/', auth, sauceCtrl.createSauce);
 // recuperer toutes les sauces
-router.get('/',sauceCtrl.getAllSauces);
+router.get('/', auth, sauceCtrl.getAllSauces);
 // recuperer une sauce
-router.get('/:id', sauceCtrl.getOneSauce);
+router.get('/:id', auth, sauceCtrl.getOneSauce);
 // modifier une sauces
-router.put('/:id',sauceCtrl.modifySauce );
+router.put('/:id', auth, sauceCtrl.modifySauce );
 // effacer une sauce
-router.delete('/:id',sauceCtrl.deleteSauce);
+router.delete('/:id', auth, sauceCtrl.deleteSauce);
 
 
         
