@@ -31,6 +31,7 @@ npm start
    <li>npm install jsonwebtoken</li>
    <li>npm install dotenv</li>
    <li>npm install multer</li>
+   <li>npm install password-validator</li>
    </ul>
  Après récuperation de ce repositorie :<br>
 
