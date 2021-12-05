@@ -3,7 +3,7 @@ const app = express();
 app.use(express.json());
 const mongoose = require('mongoose');
 const path = require('path');
-const helmet = require('helmet');
+const helmet = require('helmet');     // prevention contre les attaques XSS dans les HTTP headers
 
 const sauceRoute = require('./routes/sauceRoute');
 const userRoute = require('./routes/userRoute');
