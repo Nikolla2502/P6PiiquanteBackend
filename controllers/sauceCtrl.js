@@ -1,8 +1,8 @@
 // recuperation du modele sauce 
-const { json } = require('express');
+
 const Sauce = require('../models/sauce');
 const fs = require('fs');
-const sauce = require('../models/sauce');
+
 
 // creation sauce
 exports.createSauce = (req,res,next) => {
