@@ -1,12 +1,17 @@
 // recuperation du modele sauce 
+const { json } = require('express');
+const Sauce = require('../models/sauce');
+const fs = require('fs');
 const sauce = require('../models/sauce');
 
 // creation sauce
 exports.createSauce = (req,res,next) => {
-    delete req.body._id;        // on enleve le champs id genere par mongodb du corps de la requete
-    const sauce = new sauce({
-        ...req.body           // ...req.body premet de recuperer l'integralite du corps de la requete
-    })
+    const sauceObject = json.parse(req.body.sauce);
+    delete sauceObject._id;        // on enleve le champs id genere par mongodb du corps de la requete
+    const sauce = new Sauce({
+        ...sauceObject,           // ...sauceObject premet de recuperer l'integralite du corps de la requete
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    });
     sauce.save()
     .then(() => res.status(201).json({ message: 'Sauce enregistré !'}))
     .catch(error => res.status(400).json({ error}));
@@ -28,13 +33,30 @@ exports.getOneSauce = (req, res, next) => {
 
 // modifier une sauce
 exports.modifySauce = (req, res, next) => {
-    sauce.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+    const sauceObject = req.file ?                                                      // on verifie si l'objet exite ou non
+    { 
+        ...json.parse(req.body.sauce),
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    } : { ...req.body };
+    sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
     .then(() => res.status(200).json({ message: 'Sauce modifié !'}))
     .catch(error => res.status(400).json({ error }));
     }
 
 // effacer une sauce
 exports.deleteSauce = (req, res, next) => {
+    sauce.findOne({ _id: req.params.id })
+        .then(sauce => {
+            const filename = sauce.imageUrl.split('/images')[1];
+            fs.unlink(`images/${filename}`, () => {                // une fois que le fichier est supprimé on supprime la sauce
+                sauce.deleteOne({ _id: req.params.id })
+                .then(() => {res.status(200).json({message: 'Deleted!'})
+                })
+                .catch((error) => {res.status(400).json({error: error})});
+            });
+        })
+        .catch(error => res.status(500).json({ error }));
+
     sauce.findOne({ _id: req.params.id }) 
         .then((sauce) => {
         if (!sauce) {
@@ -47,6 +69,6 @@ exports.deleteSauce = (req, res, next) => {
             .then(() => {res.status(200).json({message: 'Deleted!'})
             })
             .catch((error) => {res.status(400).json({error: error})});
-        }
-        )
+        })
+        .catch(error => res.status(500).json({ error }));
 };

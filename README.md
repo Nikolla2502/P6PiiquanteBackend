@@ -22,14 +22,16 @@ npm start
 
  <h3>Backend</h3> 
  Les dependances NPM suivantes ont été utilisé :
- <ul>
- <li>npm install -g nodemon</li>
- <li>npm install --save express</li>
- <li>npm install --save mongoose</li>
- <li>npm install --save mongoose-unique-validator</li>
- <li>npm install --save bcrypt</li>
- <li>npm install --save jsonwebtoken</li>
-    </ul>
+   <ul>
+   <li>npm install -g nodemon</li>
+   <li>npm install express</li>
+   <li>npm install mongoose</li>
+   <li>npm install mongoose-unique-validator</li>
+   <li>npm install bcrypt</li>
+   <li>npm install jsonwebtoken</li>
+   <li>npm install dotenv</li>
+   <li>npm install multer</li>
+   </ul>
  Après récuperation de ce repositorie :<br>
 
  <strong>Fichier ".env.dist" :</strong><br>
