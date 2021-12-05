@@ -35,7 +35,18 @@ exports.modifySauce = (req, res, next) => {
 
 // effacer une sauce
 exports.deleteSauce = (req, res, next) => {
-    sauce.deleteOne({ _id: req.params.id })
-    .then(() => res.status(200).json({ message: 'Sauce supprimé !'}))
-    .catch(error => res.status(400).json({ error }));
-    };
+    sauce.findOne({ _id: req.params.id }) 
+        .then((sauce) => {
+        if (!sauce) {
+            res.status(404).json({error: new Error('Objet non trouvé !')});
+        }
+        if (sauce.userId !== req.auth.userId) {
+            return res.status(401).json({error: new Error('Requête non autorisée !')});
+        }
+        sauce.deleteOne({ _id: req.params.id })
+            .then(() => {res.status(200).json({message: 'Deleted!'})
+            })
+            .catch((error) => {res.status(400).json({error: error})});
+        }
+        )
+};
