@@ -1,42 +1,46 @@
+// recuperation du modele sauce 
 const Sauce = require('../models/sauce');
+
+// declaration de 'fs' pour la gestion des fichiers image des sauces
 const fs= require('fs');
 
-
+// creation sauce
 exports.createSauce = (req, res ,next) => {
     const sauceObject = JSON.parse(req.body.sauce);
+    delete sauceObject._id;        // on enleve le champs id genere du corps de la requete
     const sauce = new Sauce({
-        ...sauceObject,
+        ...sauceObject,                           // ...sauceObject premet de recuperer l'integralite du corps de la requete
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     });
     sauce.save()
-    .then(() => res.status(201).json({ message: 'Sauce enregisté !!'}))
-    .catch(error => {
-        res.status(400).json({error});
-
-    });
+        .then(() => res.status(201).json({ message: 'Sauce enregisté !!'}))
+        .catch(error => {res.status(400).json({error})});
 };
 
+// recuperer toutes les sauces
 exports.getAllSauces = (req, res, next)=> {
     Sauce.find()
-    .then(things => res.status(200).json(things))
-    .catch(error => res.status(400).json({ error }));
+        .then(things => res.status(200).json(things))
+        .catch(error => res.status(400).json({ error }));
 };
 
+// recuperer une sauce
 exports.getOneSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id})  // on recupere l'id correspondant à la demande et on verifie que celui-ci correspond à l'objet demandé
         .then(thing => res.status(200).json(thing))
         .catch(error => res.status(404).json({ error }));
 };
 
+// modifier une sauce
 exports.modifySauce = (req, res, next) => {
-    const sauceObject = req.file ?
+    const sauceObject = req.file ?                                // on verifie si l'objet existe ou non
     { 
         ...JSON.parse(req.body.sauce),
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : {...req.body};
     Sauce.updateOne({_id: req.params.id}, {...sauceObject, _id: req.params.id})
-    .then(() => res.status(200).json({ message: 'Sauce modifié '}))
-    .catch(error => res.status(400).json({error}));
+        .then(() => res.status(200).json({ message: 'Sauce modifié '}))
+        .catch(error => res.status(400).json({error}));
 };
 
 // effacer une sauce
@@ -69,7 +73,7 @@ exports.deleteSauce = (req, res, next) => {
       .catch(error => res.status(500).json({ error }));
 };
 
-
+// user like dislike
 exports.userLikeSauce = (req, res, next) => {
 
     let like = req.body.like //Initialiser le statut Like
