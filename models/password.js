@@ -1,5 +1,3 @@
-// definir le format des mots de passe
-
 const passwordValidator = require('password-validator');
 
 const passwordSchema = new passwordValidator();

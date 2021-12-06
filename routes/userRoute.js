@@ -7,5 +7,4 @@ const passwordValidator = require('../middleware/passwordValidator');
 router.post('/signup',passwordValidator, userCtrl.signup);
 router.post('/login',passwordValidator, userCtrl.login);
 
-
 module.exports = router;

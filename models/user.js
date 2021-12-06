@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
 email: { 
     type: String, 
     required: true, 
-    unique: true       // l'utilisateur est unique avec son adresse mail
+    unique: true 
 },
 password: { 
     type: String, 
@@ -13,6 +13,9 @@ password: {
 }
 });
 
-userSchema.plugin(uniqueValidator); // on utilise unique-validator dans le schema avant de l'exporter
+userSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('User', userSchema);
+
+
+
