@@ -72,3 +72,69 @@ exports.deleteSauce = (req, res, next) => {
         })
         .catch(error => res.status(500).json({ error }));
 };
+
+
+// user like dislike
+exports.userLikeSauce = (req, res, next) => {
+
+    let like = req.body.like //Initialiser le statut Like
+    let userId = req.body.userId //Un utilisateur ne peut avoir qu'une seule valeur pour chaque sauce
+    let sauceId = req.params.id //Récupération de l'id de la sauce
+  
+    if (like === 1) { //Si l'utilisateur like
+      //Methode update pour mettre à jour le like
+      Sauce.updateOne(
+        {_id: sauceId}, 
+        {
+            $push: {usersLiked : userId}, //Push l'utilisateur
+            $inc: {likes: +1} //On incrémente de 1
+        }) 
+  
+        .then(() => res.status(200).json({ message: 'Sauce liké !'}))
+        .catch(error => res.status(400).json({ error }));
+    }
+  
+    if (like === -1) { //Si l'utilisateur Dislike
+      Sauce.updateOne(
+        {_id: sauceId}, 
+        { 
+            $push: {usersDisliked : userId}, 
+            $inc: {dislikes: +1} //Incrémente de 1 
+        })
+  
+        .then(() => res.status(200).json({ message: 'Sauce Disliké !'}))
+        .catch(error => res.status(400).json({ error }));
+    }
+  
+    if (like === 0) { //Annulation d'un like ou dislike
+      //Methode findOne pour trouver la sauce unique ayant le même id que le paramètre de la requête
+      Sauce.findOne({_id: sauceId})  
+        .then((sauce) => {
+          if (sauce.usersLiked.find(user => user === userId)) { //Si l'utilisateur annule un like
+            Sauce.updateOne(
+              {_id: sauceId},
+              { $pull: { usersLiked: userId},
+                $inc: { likes: -1 } //Incrémente de 1
+              })
+  
+              .then(() => res.status(200).json({ message: "Like annulé !"}))
+              .catch(error => res.status(400).json({ error }));
+          }
+  
+          if(sauce.usersDisliked.find(user => user === userId)) { //Si l'utilisateur annule un dislike
+            Sauce.updateOne(
+              {_id: sauceId},
+              { $pull: { usersDisliked: userId},
+                $inc: { dislikes: -1 } //Décréménte de 1
+              })
+  
+              .then(() => res.status(200).json({ message: "Dislike annulé !"}))
+              .catch(error => res.status(400).json({ error }));
+          }
+  
+        })
+        .catch((error) => res.status(404).json({ error }))
+  
+    }
+  
+  };
