@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-app.use(express.json());
+app.use(express.json()); // body parser deprecated
 const mongoose = require('mongoose');
 const path = require('path');
 const helmet = require('helmet');     // prevention contre les attaques XSS dans les HTTP headers

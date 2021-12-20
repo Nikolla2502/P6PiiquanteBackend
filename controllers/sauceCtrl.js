@@ -33,11 +33,12 @@ exports.getOneSauce = (req, res, next) => {
 
 // modifier une sauce
 exports.modifySauce = (req, res, next) => {
-    const sauceObject = req.file ?                                // on verifie si l'objet existe ou non
+    const sauceObject = req.file ?                                // on verifie si l'image existe ou non
     { 
         ...JSON.parse(req.body.sauce),
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : {...req.body};
+
     Sauce.findOne({  _id: req.params.id , userId: req.auth.userId  })
       .then(sauce => {
         if (!sauce) {
@@ -86,7 +87,7 @@ exports.userLikeSauce = (req, res, next) => {
         {_id: sauceId}, 
         {
             $push: {usersLiked : userId},
-            $inc: {likes: +1}
+            $inc: {likes: 1}
         }) 
   
         .then(() => res.status(200).json({ message: 'Vous aimez cette sauce !!!'}))
@@ -98,7 +99,7 @@ exports.userLikeSauce = (req, res, next) => {
         {_id: sauceId}, 
         { 
             $push: {usersDisliked : userId}, 
-            $inc: {dislikes: +1}
+            $inc: {dislikes: 1}
         })
   
         .then(() => res.status(200).json({ message: 'Vous n\'aimez pas cette sauce !!!'}))
